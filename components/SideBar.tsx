@@ -7,15 +7,24 @@ import NewChat from "./NewChat"
 import { db } from "@/firebase"
 import ChatRow from "./ChatRow"
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/20/solid"
+import { useRouter } from "next/navigation"
 
 const SideBar = () => {
     const { data: session } = useSession()
+    const router = useRouter()
 
     const [chats, loading, error] = useCollection(
         session && query(
             collection(db, "users", session?.user?.email!, 'chats'),
             orderBy('createdAt', 'asc'))
     )
+
+    const logout = () => {
+        console.log('Before router.push');
+        router.push('/');
+        console.log('After router.push');
+        signOut();
+      };
    
   return (
     <div className="p-2 flex flex-col h-screen">
@@ -33,7 +42,7 @@ const SideBar = () => {
 
         {session && (
             <ArrowLeftOnRectangleIcon
-                onClick={() => signOut()}
+                onClick={logout}
                 className="h-8 w-8 text-white cursor-pointer mx-auto mb-2 hover:opacity-50"
             />
         )}
