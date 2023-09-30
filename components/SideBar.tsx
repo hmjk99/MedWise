@@ -19,11 +19,11 @@ const SideBar = () => {
             orderBy('createdAt', 'asc'))
     )
 
-    const logout = () => {
+    const logout = async () => {
         console.log('Before router.push');
-        router.push('/');
+        await router.replace('/');
         console.log('After router.push');
-        signOut();
+        await signOut();
       };
    
   return (
