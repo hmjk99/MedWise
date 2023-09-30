@@ -19,12 +19,10 @@ const SideBar = () => {
             orderBy('createdAt', 'asc'))
     )
 
-    const logout = async () => {
-        console.log('Before router.push');
-        await router.replace('/');
-        console.log('After router.push');
-        await signOut();
-      };
+    // const logout = async () => {
+    //     await router.push("/");
+    //     await signOut();
+    //   };
    
   return (
     <div className="p-2 flex flex-col h-screen">
@@ -42,7 +40,11 @@ const SideBar = () => {
 
         {session && (
             <ArrowLeftOnRectangleIcon
-                onClick={logout}
+            onClick={() =>
+                signOut({
+                  callbackUrl: `${window.location.origin}`
+                })
+              }
                 className="h-8 w-8 text-white cursor-pointer mx-auto mb-2 hover:opacity-50"
             />
         )}
